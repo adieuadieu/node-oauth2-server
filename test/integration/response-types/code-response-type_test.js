@@ -81,9 +81,9 @@ describe('CodeResponseType integration', function() {
       };
       var responseType = new CodeResponseType({ authorizationCodeLifetime: 120, model: model });
       responseType.code = 'foo';
-      var redirectUri = responseType.buildRedirectUri(url.parse('http://example.com/cb'));
+      var redirectUri = responseType.buildRedirectUri(url.parse('http://example.com/cb?with=param', true));
 
-      url.format(redirectUri).should.equal('http://example.com/cb?code=foo');
+      url.format(redirectUri).should.equal('http://example.com/cb?with=param&code=foo');
     });
 
     it('should return the new redirect uri and append the `code` and `state` in the query', function() {

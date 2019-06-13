@@ -1044,9 +1044,9 @@ describe('AuthorizeHandler integration', function() {
         saveAuthorizationCode: function() {}
       }});
       responseType.code = 12345;
-      var redirectUri = handler.buildSuccessRedirectUri('http://example.com/cb', responseType);
+      var redirectUri = handler.buildSuccessRedirectUri('http://example.com/cb?with=param', responseType);
 
-      url.format(redirectUri).should.equal('http://example.com/cb?code=12345');
+      url.format(redirectUri).should.equal('http://example.com/cb?with=param&code=12345');
     });
   });
 
@@ -1062,9 +1062,9 @@ describe('AuthorizeHandler integration', function() {
       var responseType = new CodeResponseType({ authorizationCodeLifetime: 120, model: {
         saveAuthorizationCode: function() {}
       }});
-      var redirectUri = handler.buildErrorRedirectUri('http://example.com/cb', responseType, error);
+      var redirectUri = handler.buildErrorRedirectUri('http://example.com/cb?with=param', responseType, error);
 
-      url.format(redirectUri).should.equal('http://example.com/cb?error=invalid_client&error_description=foo%20bar');
+      url.format(redirectUri).should.equal('http://example.com/cb?with=param&error=invalid_client&error_description=foo%20bar');
     });
 
     it('should return a redirect uri', function() {
@@ -1093,7 +1093,7 @@ describe('AuthorizeHandler integration', function() {
       };
       var handler = new AuthorizeHandler({ authorizationCodeLifetime: 120, model: model });
       var response = new Response({ body: {}, headers: {} });
-      var uri = url.parse('http://example.com/cb');
+      var uri = url.parse('http://example.com/cb', true);
       var responseType = new CodeResponseType({ authorizationCodeLifetime: 120, model: {
         saveAuthorizationCode: function() {}
       }});

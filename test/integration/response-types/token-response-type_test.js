@@ -69,7 +69,7 @@ describe('TokenResponseType integration', function() {
       });
 
       responseType.accessToken = 'foobar-token';
-      var redirectUri = responseType.buildRedirectUri(url.parse('http://example.com/cb'));
+      var redirectUri = responseType.buildRedirectUri(url.parse('http://example.com/cb', true));
 
       url.format(redirectUri).should.equal('http://example.com/cb#access_token=foobar-token');
     });
