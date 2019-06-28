@@ -237,6 +237,8 @@ Retrieves a new token for an authorized token request.
 +----------------------------------------------+-----------------+-------------------------------------------------------------------------------------------+
 | [options.requireClientAuthentication={}]     | Object          | Require a client secret (see remarks section). Defaults to ``true`` for all grant types.  |
 +----------------------------------------------+-----------------+-------------------------------------------------------------------------------------------+
+| [options.isClientAuthenticationRequired]     | Function        | Overwrite the behavior which client requires client authentication for a grant.           |
++----------------------------------------------+-----------------+-------------------------------------------------------------------------------------------+
 | [options.alwaysIssueNewRefreshToken=true]    | Boolean         | Always revoke the used refresh token and issue a new one for the ``refresh_token`` grant. |
 +----------------------------------------------+-----------------+-------------------------------------------------------------------------------------------+
 | [options.extendedGrantTypes={}]              | Object          | Additional supported grant types.                                                         |

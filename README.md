@@ -9,6 +9,15 @@
 Complete, compliant and well tested module for implementing an OAuth2 server in [Node.js](https://nodejs.org).
 
 
+## Allthings Custom implementation
+Due to the lack of maintenance of the project this was forked @allthings.
+
+### Changes since fork (by Allthings)
+
+1. Bug-fix for query parameters in the redirect_uri during authorization.
+1. `isClientAuthenticationRequired` can now be overwritten in for the server options allowing us to not require a `client_secret` for public clients.
+
+
 ## Installation
 
 ```bash

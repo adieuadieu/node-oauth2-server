@@ -527,6 +527,20 @@ describe('TokenHandler integration', function() {
         .catch(should.fail);
     });
 
+    it('should throw an error if `client_secret` is missing', function() {
+      var model = {
+        getClient: function() {return {id: 12345, public: true, grants: []}},
+        saveToken: function() {}
+      };
+      var handler = new TokenHandler({ accessTokenLifetime: 120, model: model, refreshTokenLifetime: 120 });
+      var request = new Request({ body: { client_id: 'foo' }, headers: {}, method: {}, query: {} });
+
+      return handler.getClient(request).then(should.fail).catch(function (e) {
+        e.should.be.an.instanceOf(InvalidRequestError);
+        e.message.should.equal('Missing parameter: `client_secret`');
+      });
+    });
+
     describe('with `password` grant type and `requireClientAuthentication` is false', function() {
 
       it('should return a client ', function() {
@@ -628,24 +642,6 @@ describe('TokenHandler integration', function() {
       };
       var handler = new TokenHandler({ accessTokenLifetime: 120, model: model, refreshTokenLifetime: 120 });
       var request = new Request({ body: { client_secret: 'foo' }, headers: {}, method: {}, query: {} });
-
-      try {
-        handler.getClientCredentials(request);
-
-        should.fail();
-      } catch (e) {
-        e.should.be.an.instanceOf(InvalidClientError);
-        e.message.should.equal('Invalid client: cannot retrieve client credentials');
-      }
-    });
-
-    it('should throw an error if `client_secret` is missing', function() {
-      var model = {
-        getClient: function() {},
-        saveToken: function() {}
-      };
-      var handler = new TokenHandler({ accessTokenLifetime: 120, model: model, refreshTokenLifetime: 120 });
-      var request = new Request({ body: { client_id: 'foo' }, headers: {}, method: {}, query: {} });
 
       try {
         handler.getClientCredentials(request);
